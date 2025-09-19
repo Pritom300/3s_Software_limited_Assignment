@@ -33,5 +33,16 @@ namespace Infrastructure.Repositories
                 })
                 .ToListAsync();
         }
+
+        public async Task<Category?> GetByNameAsync(string name)
+        {
+            return await _dbSet.FirstOrDefaultAsync(c => c.Name == name);
+        }
+
+        public async Task<bool> HasProductsAsync(int categoryId)
+        {
+            return await _context.Products.AnyAsync(p => p.CategoryId == categoryId);
+
+        }
     }
 }
