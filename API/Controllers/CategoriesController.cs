@@ -25,7 +25,7 @@ namespace API.Controllers
         {
             var existing = await _uow.Categories.GetByNameAsync(dto.Name);
             if (existing != null)
-                return Conflict(new { message = "Category name already exists" });
+                return Conflict(new { message = "Category name already exists!" });
 
             var category = new Category
             {
@@ -100,7 +100,7 @@ namespace API.Controllers
                 return NotFound();
 
             if (await _uow.Categories.HasProductsAsync(id))
-                return Conflict(new { message = "Cannot delete category with linked products" });
+                return Conflict(new { message = "Cannot delete category with linked products" }); //409
 
             _uow.Categories.Remove(category);
             await _uow.CompleteAsync();

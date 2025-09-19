@@ -7,7 +7,7 @@
         public decimal Price { get; set; }
         public int Stock { get; set; }
         public int CategoryId { get; set; }
-        public string? ImageUrl { get; set; } // optional
+        public IFormFile? Image { get; set; }
     }
 
     public class ProductReadDto
@@ -29,6 +29,7 @@
         public decimal Price { get; set; }
         public int Stock { get; set; }
         public int CategoryId { get; set; }
-        public string? ImageUrl { get; set; }
+        //public string? ImageUrl { get; set; }
+        public IFormFile? ImageUrl { get; set; }
     }
 }
