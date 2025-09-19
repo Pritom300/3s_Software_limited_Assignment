@@ -70,6 +70,9 @@ namespace API.Controllers
 
         // api/auth/login
         [HttpPost("login")]
+        [ProducesResponseType(typeof(object), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public async Task<IActionResult> Login(UserLoginDto dto)
         {
             var user = await _unitOfWork.Users.GetByEmailAsync(dto.Email);
@@ -112,7 +115,7 @@ namespace API.Controllers
         //Refresh Token
 
         [HttpPost("refresh")]
-        public async Task<IActionResult> Refresh([FromBody] string refreshToken)
+        public async Task<IActionResult> Refresh(string refreshToken)
         {
             var user = (await _unitOfWork.Users.GetAllAsync())
                 .FirstOrDefault(u => u.RefreshToken == refreshToken);

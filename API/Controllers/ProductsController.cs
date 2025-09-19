@@ -3,13 +3,16 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IUnitOfWork _uow;
@@ -64,6 +67,7 @@ namespace API.Controllers
 
         // GET: api/products
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Product>), 200)]
         public async Task<IActionResult> GetAll(
             [FromQuery] int? categoryId,
             [FromQuery] decimal? minPrice,
