@@ -100,7 +100,7 @@ namespace API.Controllers
 
         // PUT: api/products/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ProductUpdateDto dto)
+        public async Task<IActionResult> Update(int id, [FromForm] ProductUpdateDto dto)
         {
             var product = await _uow.Products.GetByIdWithCategoryAsync(id);
             if (product == null) return NotFound();
@@ -114,7 +114,8 @@ namespace API.Controllers
 
             if (!string.IsNullOrWhiteSpace(product.ImageUrl))
             {
-                var p = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", product.ImageUrl);
+                var relativePath = product.ImageUrl.TrimStart('/'); // "images/12345.png"
+                var p = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", relativePath);
                 if (System.IO.File.Exists(p))
                 {
                     System.IO.File.Delete(p);
@@ -174,10 +175,14 @@ namespace API.Controllers
             
             if (!string.IsNullOrWhiteSpace(product.ImageUrl))
             {
-                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", product.ImageUrl);
-                if (System.IO.File.Exists(imagePath))
+                
+                var relativePath = product.ImageUrl.TrimStart('/'); // "images/12345.png"
+                var p = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", relativePath);
+
+
+                if (System.IO.File.Exists(p))
                 {
-                    System.IO.File.Delete(imagePath);
+                    System.IO.File.Delete(p);
                 }
             }
 

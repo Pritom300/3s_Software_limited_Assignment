@@ -20,6 +20,7 @@
         public int CategoryId { get; set; }
         public string CategoryName { get; set; } = null!;
         public string? ImageUrl { get; set; }
+        //public IFormFile? ImageUrl { get; set; }
     }
 
     public class ProductUpdateDto
