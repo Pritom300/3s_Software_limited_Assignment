@@ -19,7 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!);
 
-builder.Services.AddSingleton<JwtService>();
+builder.Services.AddScoped<JwtService>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

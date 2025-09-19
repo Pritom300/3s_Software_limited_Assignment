@@ -13,5 +13,9 @@ namespace Domain.Entities
         public string Email { get; set; }
         public string PasswordHash { get; set; } 
         public string PasswordSalt { get; set; }
+
+        // Refresh token fields
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiryTime { get; set; }
     }
 }
